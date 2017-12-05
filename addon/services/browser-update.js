@@ -2,14 +2,12 @@ import Ember from 'ember';
 import injectScript from 'ember-inject-script';
 
 export default Ember.Service.extend(Ember.Evented, {
-  fastboot: Ember.inject.service(),
   inject: function () {
     var config = this.get('_config');
-    if(this.get('fastboot.isFastboot')) {
-      return;
-    }
     window.$buoop = config;
-    this._injectAfterDelay(config.delay);
+    if(typeof document !== 'undefined') {
+      this._injectAfterDelay(config.delay);
+    }
   },
 
   show: function (infos) {
